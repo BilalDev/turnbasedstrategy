@@ -6,6 +6,8 @@ public class UnitActionSystem : SingletonMonoBehaviour<UnitActionSystem>
 {
     public event EventHandler OnSelectedUnitChanged;
     public event EventHandler OnSelectedActionChanged;
+    // public event Action<UnitActionSystem, bool> OnBusyChanged; // or below
+    public event EventHandler<bool> OnBusyChanged;
     [SerializeField] private Unit selectedUnit;
     [SerializeField] private LayerMask unitLayerMask;
 
@@ -54,11 +56,13 @@ public class UnitActionSystem : SingletonMonoBehaviour<UnitActionSystem>
 
     private void SetBusy()
     {
+        OnBusyChanged?.Invoke(this, true);
         isBusy = true;
     }
 
     private void ClearBusy()
     {
+        OnBusyChanged?.Invoke(this, false);
         isBusy = false;
     }
 
