@@ -1,0 +1,14 @@
+using UnityEngine;
+
+public class MouseWorld : SingletonMonoBehaviour<MouseWorld>
+{
+    [SerializeField] private LayerMask mousePlaneLayerMask;
+
+    public static Vector3 GetPosition()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, Instance.mousePlaneLayerMask);
+
+        return raycastHit.point;
+    }
+}
