@@ -48,4 +48,9 @@ public class SpinAction : BaseAction
     {
         return "Spin";
     }
+
+    public override int GetActionPoitnsCost()
+    {
+        return 2;
+    }
 }

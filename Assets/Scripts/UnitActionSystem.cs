@@ -8,6 +8,7 @@ public class UnitActionSystem : SingletonMonoBehaviour<UnitActionSystem>
     public event EventHandler OnSelectedActionChanged;
     // public event Action<UnitActionSystem, bool> OnBusyChanged; // or below
     public event EventHandler<bool> OnBusyChanged;
+    public event EventHandler OnActionStarted;
     [SerializeField] private Unit selectedUnit;
     [SerializeField] private LayerMask unitLayerMask;
 
@@ -46,11 +47,19 @@ public class UnitActionSystem : SingletonMonoBehaviour<UnitActionSystem>
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
 
-            if (selectedAction.IsvalidActionGridPosition(mouseGridPosition))
+            if (!selectedAction.IsvalidActionGridPosition(mouseGridPosition))
             {
-                SetBusy();
-                selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+                return;
             }
+            if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction))
+            {
+                return;
+            }
+
+            SetBusy();
+            selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+
+            OnActionStarted?.Invoke(this, EventArgs.Empty);
         }
     }
 
