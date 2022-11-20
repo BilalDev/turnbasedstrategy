@@ -13,6 +13,12 @@ PrefabInstance:
       propertyPath: health
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: -2184771511382683236, guid: cdd2b3ec6b0e14b9da989be212e389d2,
+        type: 3}
+      propertyPath: ragdollPrefab
+      value: 
+      objectReference: {fileID: 2975698437602715718, guid: 6e173d63cbcff48bc9b0fe561a364fe7,
+        type: 3}
     - target: {fileID: 5348819730589734073, guid: cdd2b3ec6b0e14b9da989be212e389d2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
