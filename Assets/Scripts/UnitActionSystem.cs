@@ -6,7 +6,6 @@ public class UnitActionSystem : SingletonMonoBehaviour<UnitActionSystem>
 {
     public event EventHandler OnSelectedUnitChanged;
     public event EventHandler OnSelectedActionChanged;
-    // public event Action<UnitActionSystem, bool> OnBusyChanged; // or below
     public event EventHandler<bool> OnBusyChanged;
     public event EventHandler OnActionStarted;
     [SerializeField] private Unit selectedUnit;
