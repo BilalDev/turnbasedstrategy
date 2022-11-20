@@ -50,4 +50,9 @@ public class LevelGrid : SingletonMonoBehaviour<LevelGrid>
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
         return gridObject.HasUnit();
     }
+    public Unit GetUnitAtGridPosition(GridPosition gridPosition)
+    {
+        GridObject gridObject = gridSystem.GetGridObject(gridPosition);
+        return gridObject.GetUnit();
+    }
 }
