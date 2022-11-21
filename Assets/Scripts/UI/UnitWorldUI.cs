@@ -22,7 +22,7 @@ public class UnitWorldUI : MonoBehaviour
 
     private void UpdateActionPointsText()
     {
-        actionPointsText.text = unit.GetActionPoitns().ToString();
+        actionPointsText.SetText(unit.GetActionPoitns().ToString());
     }
 
     private void Unit_OnAnyActionPointsChanged(object sender, EventArgs empty)

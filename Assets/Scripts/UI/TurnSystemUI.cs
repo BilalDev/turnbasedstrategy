@@ -30,7 +30,7 @@ public class TurnSystemUI : MonoBehaviour
 
     private void UpdateTurnText(int turn)
     {
-        turnNumberText.text = "TURN " + turn.ToString();
+        turnNumberText.SetText("TURN " + turn.ToString());
     }
 
     private void UpdateEnemyTurnVisual()
