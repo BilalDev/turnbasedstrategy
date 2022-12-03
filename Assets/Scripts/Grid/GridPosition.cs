@@ -1,6 +1,7 @@
 // struct is value type whereas class is reference type
 using System;
 
+// IEquatable to implements Equals method
 public struct GridPosition : IEquatable<GridPosition>
 {
     public int x;
