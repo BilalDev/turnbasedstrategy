@@ -11,6 +11,7 @@ public class ShootAction : BaseAction
     private bool canShootBullet;
     private float rotateSpeed = 10f;
     public event EventHandler<OnShootEventArgs> OnShoot;
+    public static  event EventHandler<OnShootEventArgs> OnAnyShoot;
     private float unitShoulderHeight = 1.7f;
 
     public class OnShootEventArgs : EventArgs
@@ -162,6 +163,12 @@ public class ShootAction : BaseAction
     private void Shoot()
     {
         OnShoot?.Invoke(this, new OnShootEventArgs
+        {
+            targetUnit = targetUnit,
+            shootingUnit = unit
+        });
+
+        OnAnyShoot?.Invoke(this, new OnShootEventArgs
         {
             targetUnit = targetUnit,
             shootingUnit = unit
