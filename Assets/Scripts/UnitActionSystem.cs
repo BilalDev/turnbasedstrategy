@@ -47,7 +47,7 @@ public class UnitActionSystem : SingletonMonoBehaviour<UnitActionSystem>
 
     private void HandleSelectedAction()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (InputManager.Instance.IsLeftMouseButtonDown())
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
 
@@ -81,9 +81,9 @@ public class UnitActionSystem : SingletonMonoBehaviour<UnitActionSystem>
 
     private bool TryHandleUnitSelection()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (InputManager.Instance.IsRightMouseButtonDown())
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance.GetMouseScreenPosition());
 
             if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, unitLayerMask))
             {

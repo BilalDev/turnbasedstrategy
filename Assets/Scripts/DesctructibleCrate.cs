@@ -1,3 +1,5 @@
+// Could use an interface if another object can be destructible
+
 using System;
 using UnityEngine;
 
