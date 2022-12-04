@@ -5,11 +5,13 @@ using UnityEngine;
 public class ShootAction : BaseAction
 {
     [SerializeField] private int maxShootDistance = 7;
+    [SerializeField] private LayerMask obstaclesLayerMask;
     private float stateTimer;
     private Unit targetUnit;
     private bool canShootBullet;
     private float rotateSpeed = 10f;
     public event EventHandler<OnShootEventArgs> OnShoot;
+    private float unitShoulderHeight = 1.7f;
 
     public class OnShootEventArgs : EventArgs
     {
@@ -122,6 +124,18 @@ public class ShootAction : BaseAction
                 if (targetUnit.IsEnemy() == unit.IsEnemy())
                 {
                     // Both Units on same 'team'
+                    continue;
+                }
+
+                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
+                Vector3 shootDirection = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
+                if (Physics.Raycast(
+                    unitWorldPosition + Vector3.up * unitShoulderHeight,
+                    shootDirection,
+                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()), obstaclesLayerMask
+                ))
+                {
+                    // Blocked by an obstacle
                     continue;
                 }
 

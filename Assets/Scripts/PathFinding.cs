@@ -5,6 +5,7 @@ public class PathFinding : SingletonMonoBehaviour<PathFinding>
 {
     private const int MOVE_STRAIGHT_COST = 10;
     private const int MOVE_DIAGNOAL_COST = 14;
+    private const int DISTANCE_MULTIPLIER = 10;
     private int width;
     private int height;
     private float cellSize;
@@ -37,7 +38,7 @@ public class PathFinding : SingletonMonoBehaviour<PathFinding>
         }
     }
 
-    public List<GridPosition> FindPath(GridPosition startGridPosition, GridPosition endGridPosition)
+    public List<GridPosition> FindPath(GridPosition startGridPosition, GridPosition endGridPosition, out int pathLength)
     {
         List<PathNode> openList = new List<PathNode>();
         List<PathNode> closedList = new List<PathNode>();
@@ -73,6 +74,7 @@ public class PathFinding : SingletonMonoBehaviour<PathFinding>
             if (currentNode == endNode)
             {
                 // Reached the final node so we can return the list
+                pathLength = endNode.GetFCost();
                 return CalculatePath(endNode);
             }
 
@@ -109,6 +111,7 @@ public class PathFinding : SingletonMonoBehaviour<PathFinding>
             }
         }
 
+        pathLength = 0;
         return null;
     }
 
@@ -218,5 +221,22 @@ public class PathFinding : SingletonMonoBehaviour<PathFinding>
         }
 
         return gridPositionList;
+    }
+
+    public bool IsWalkableGridPosition(GridPosition gridPosition)
+    {
+        return gridSystem.GetGridObject(gridPosition).IsWalkable();
+    }
+
+    public bool HasPath(GridPosition startGridPosition, GridPosition endGridPosition)
+    {
+        return FindPath(startGridPosition, endGridPosition, out int pathLength) != null;
+    }
+
+    public int GetPathLength(GridPosition startGridPosition, GridPosition endGridPosition)
+    {
+        FindPath(startGridPosition, endGridPosition, out int pathLength);
+
+        return pathLength / DISTANCE_MULTIPLIER;
     }
 }
