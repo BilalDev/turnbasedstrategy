@@ -90,6 +90,9 @@ public class GridSystemVisual : SingletonMonoBehaviour<GridSystemVisual>
             case GrenadeAction grenadeAction:
                 gridVisualType = GridVisualType.Yellow;
                 break;
+            case InteractAction interactAction:
+                gridVisualType = GridVisualType.Blue;
+                break;
             case ShootAction shootAction:
                 gridVisualType = GridVisualType.Red;
 
